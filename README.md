@@ -1,120 +1,115 @@
 # Syldoria Launcher
 
-Ein angepasster Minecraft-Launcher mit erweiterten Funktionen für ein optimales Spielerlebnis.
+A custom Minecraft launcher with enhanced features for an optimal gaming experience, specifically designed for the Syldoria RP (Roleplay) server project.
 
 ![Syldoria Launcher Logo](src/main/resources/icons/logo.png)
 
-## Über das Projekt
+## About the Project
 
-Der Syldoria Launcher ist ein speziell entwickelter Minecraft-Launcher, der eine verbesserte Benutzeroberfläche und zusätzliche Funktionen bietet. Er ermöglicht eine einfache Installation und Verwaltung von Minecraft-Versionen, Mods und Ressourcenpaketen.
+The Syldoria Launcher is a specially developed Minecraft launcher that offers an improved user interface and additional features. It enables easy installation and management of Minecraft versions, mods, and resource packs required for the Syldoria roleplay server.
 
-**WICHTIG:** Dieser Launcher darf nur für Open-Source-Projekte genutzt werden. Die kommerzielle Nutzung ist nicht gestattet.
+**IMPORTANT:** 
+- This launcher may only be used for open-source projects. Commercial use is not permitted.
+- The launcher is **Windows-only** and does not support Linux or macOS.
+- This launcher is specifically designed for the Syldoria roleplay server project.
 
-## Funktionen
+## Features
 
-- Moderne, benutzerfreundliche Oberfläche
-- Unterstützung für Microsoft- und Mojang-Konten
-- Einfache Installation und Verwaltung von Minecraft-Versionen
-- Automatische Updates
-- Mod-Integration und -Verwaltung
-- Ressourcenpaket-Management
-- Discord-Integration
+- Modern, user-friendly interface
+- Support for Microsoft and Mojang accounts
+- Easy installation and management of Minecraft versions
+- Automatic updates
+- Mod integration and management
+- Resource pack management
+- Discord integration
+- Special features for the Syldoria RP server
 
-## Voraussetzungen
+## Requirements
 
-1. **Java 21 oder neuer** muss installiert sein
-2. **JavaFX 21.0.5** muss installiert sein
-   - Standard-Installationspfad: `C:/Users/[Benutzername]/JavaFX/javafx-sdk-21.0.5/lib`
-3. **JCEF** (Java Chromium Embedded Framework) muss installiert sein
-   - Standard-Installationspfad: `C:/Users/[Benutzername]/JavaFX/web`
+1. **Windows Operating System** - The launcher does not work on Linux or macOS
+2. **Java 21 or newer** must be installed
+3. **JavaFX 21.0.5** must be installed
+   - Default installation path: `C:/Users/[Username]/JavaFX/javafx-sdk-21.0.5/lib`
+4. **JCEF** (Java Chromium Embedded Framework) must be installed
+   - Default installation path: `C:/Users/[Username]/JavaFX/web`
 
 ## Installation
 
-### Voraussetzungen installieren
+### Installing Prerequisites
 
-1. **Java 21+**: Laden Sie Java von [Oracle](https://www.oracle.com/java/technologies/downloads/) oder [AdoptOpenJDK](https://adoptopenjdk.net/) herunter
-2. **JavaFX 21.0.5**: Laden Sie JavaFX von [Gluon](https://gluonhq.com/products/javafx/) herunter
-3. **JCEF**: Das JCEF-Bundle ist im Repository enthalten
+1. **Java 21+**: Download Java from [Oracle](https://www.oracle.com/java/technologies/downloads/) or [AdoptOpenJDK](https://adoptopenjdk.net/)
+2. **JavaFX 21.0.5**: Download JavaFX from [Gluon](https://gluonhq.com/products/javafx/)
+3. **JCEF**: The JCEF bundle is included in the repository
 
-### Launcher starten
+### Starting the Launcher
 
 #### Windows
 
-1. Öffnen Sie eine Eingabeaufforderung oder PowerShell im Projektverzeichnis
-2. Führen Sie das Startskript aus:
+1. Open a Command Prompt or PowerShell in the project directory
+2. Run the startup script:
    ```
    start_launcher.bat
    ```
    
-   Oder die erweiterte Version mit zusätzlichen Prüfungen:
+   Or the extended version with additional checks:
    ```
    start_launcher_erweitert.bat
    ```
 
-#### Linux/Mac
+### Manual Start
 
-1. Öffnen Sie ein Terminal im Projektverzeichnis
-2. Machen Sie das Startskript ausführbar:
-   ```
-   chmod +x start_launcher.sh
-   ```
-3. Führen Sie das Startskript aus:
-   ```
-   ./start_launcher.sh
-   ```
-
-## Manueller Start
-
-Sie können den Launcher auch manuell mit folgendem Befehl starten:
+You can also start the launcher manually with the following command:
 
 ```
-java --enable-preview --module-path "PFAD_ZU_JAVAFX/lib" --add-modules javafx.controls,javafx.fxml,javafx.media,javafx.web,javafx.swing --add-exports=javafx.base/com.sun.javafx=ALL-UNNAMED --add-exports=javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED --add-exports=javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED --add-exports=javafx.graphics/com.sun.javafx.embed.swing=ALL-UNNAMED -Djava.library.path="PFAD_ZU_JCEF" -jar build/libs/SyldoriaLauncher-1.0.jar
+java --enable-preview --module-path "PATH_TO_JAVAFX/lib" --add-modules javafx.controls,javafx.fxml,javafx.media,javafx.web,javafx.swing --add-exports=javafx.base/com.sun.javafx=ALL-UNNAMED --add-exports=javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED --add-exports=javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED --add-exports=javafx.graphics/com.sun.javafx.embed.swing=ALL-UNNAMED -Djava.library.path="PATH_TO_JCEF" -jar build/libs/SyldoriaLauncher-1.0.jar
 ```
 
-Ersetzen Sie `PFAD_ZU_JAVAFX` und `PFAD_ZU_JCEF` mit Ihren tatsächlichen Pfaden.
+Replace `PATH_TO_JAVAFX` and `PATH_TO_JCEF` with your actual paths.
 
-## Entwicklung
+## Development
 
-### Projekt klonen
+### Cloning the Project
 
 ```bash
 git clone https://github.com/GoldgamerYT/Syldoria-Launcher.git
 cd Syldoria-Launcher
 ```
 
-### Projekt bauen
+### Building the Project
 
 ```bash
 ./gradlew shadowJar
 ```
 
-Dies erstellt eine ausführbare JAR-Datei im Verzeichnis `build/libs/`.
+This creates an executable JAR file in the `build/libs/` directory.
 
-## Fehlerbehebung
+## Troubleshooting
 
-1. **JavaFX nicht gefunden**: Stellen Sie sicher, dass JavaFX im angegebenen Pfad installiert ist oder passen Sie den Pfad in den Startskripten an.
+1. **JavaFX not found**: Make sure JavaFX is installed in the specified path or adjust the path in the startup scripts.
 
-2. **JAR-Datei nicht gefunden**: Stellen Sie sicher, dass Sie das Projekt mit `./gradlew shadowJar` gebaut haben.
+2. **JAR file not found**: Make sure you have built the project with `./gradlew shadowJar`.
 
-3. **Java-Version**: Vergewissern Sie sich, dass Sie Java 21 oder neuer verwenden, da das Projekt die `--enable-preview`-Flag verwendet.
+3. **Java version**: Make sure you are using Java 21 or newer, as the project uses the `--enable-preview` flag.
 
-4. **Anzeigefehler**: Wenn die GUI nicht richtig angezeigt wird, könnte das Problem mit der JCEF-Installation zusammenhängen. Überprüfen Sie, ob die Bibliotheken im richtigen Pfad vorhanden sind.
+4. **Display errors**: If the GUI is not displayed correctly, the problem could be related to the JCEF installation. Check if the libraries are in the correct path.
 
-## Lizenz
+5. **Platform compatibility**: Remember that this launcher only works on Windows systems.
 
-Dieser Launcher ist **nur für Open-Source-Projekte** freigegeben. Die kommerzielle Nutzung ist untersagt. Alle Rechte vorbehalten.
+## License
 
-## Beiträge
+This launcher is **only released for open-source projects**. Commercial use is prohibited. All rights reserved.
 
-Beiträge zum Projekt sind willkommen! Wenn Sie einen Fehler finden oder eine Verbesserung vorschlagen möchten, erstellen Sie bitte ein Issue oder einen Pull Request.
+## Contributions
 
-## Kontakt
+Contributions to the project are welcome! If you find a bug or want to suggest an improvement, please create an issue or a pull request.
 
-Bei Fragen oder Anregungen können Sie sich an das Entwicklerteam wenden:
+## Contact
+
+For questions or suggestions, you can contact the development team:
 
 - GitHub: [GoldgamerYT](https://github.com/GoldgamerYT)
-- Discord: (Link zum Discord-Server)
+- Discord: (Link to Discord server)
 
 ---
 
-2025 Syldoria Launcher - Entwickelt mit ❤️ für die Minecraft-Community 
+2025 Syldoria Launcher - Developed with ❤️ for the Syldoria RP server community 
