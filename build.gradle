@@ -1,0 +1,88 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+// Damit alle Subprojekte (falls vorhanden) Repositories erben
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+}
+
+group = 'ch.RP'
+version = '1.0-SNAPSHOT'
+
+// Zusätzliche Repositories (zur Sicherheit noch mal hier)
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://maven.u-team.info/' }
+}
+
+dependencies {
+    // ======== Deine bestehenden Abhängigkeiten ========
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+    implementation 'com.formdev:flatlaf:3.1'
+    implementation 'club.minnced:java-discord-rpc:2.0.1'
+    implementation 'net.raphimc:MinecraftAuth:4.1.1'
+    implementation 'net.lenni0451.commons:httpclient:1.0.0'
+    implementation 'org.json:json:20210307'
+    implementation 'com.sparkjava:spark-core:2.9.4'
+    implementation 'org.nanohttpd:nanohttpd:2.3.1'
+    implementation 'org.apache.xmlgraphics:batik-all:1.16'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+
+
+    implementation 'me.friwi:jcefmaven:132.3.1'
+
+
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation project(':jmccc')
+    implementation project(':jmccc-mcdownloader')
+    implementation project(':jmccc-yggdrasil-authenticator')
+    implementation project(':jmccc-microsoft-authenticator')
+
+
+}
+
+// Shadow-JAR-Konfiguration (falls du ein fatjar willst)
+shadowJar {
+    mergeServiceFiles()
+    archiveBaseName.set('SyldoriaLauncher')
+    archiveVersion.set('1.0')
+    archiveClassifier.set('')
+}
+
+javafx {
+    version = '21.0.5'
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web' , 'javafx.media' , 'javafx.swing']
+}
+
+application {
+    mainClass = 'ch.RP.LauncherLib.Main'
+    applicationDefaultJvmArgs = [
+            '--module-path', 'C:/Users/jerom/JavaFX/javafx-sdk-21.0.5/lib',
+            '--add-modules', 'javafx.controls,javafx.fxml,javafx.media,javafx.web,javafx.swing',
+            '--add-exports=javafx.base/com.sun.javafx=ALL-UNNAMED',
+            '--add-exports=javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED',
+            '--add-exports=javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED',
+            '--add-exports=javafx.graphics/com.sun.javafx.embed.swing=ALL-UNNAMED',
+            '-Djava.library.path=C:/Users/jerom/JavaFX/web'
+    ]
+}
+
+// Preview-Features
+tasks.withType(JavaCompile) {
+    options.compilerArgs += '--enable-preview'
+}
+tasks.withType(JavaExec) {
+    jvmArgs += '--enable-preview'
+}

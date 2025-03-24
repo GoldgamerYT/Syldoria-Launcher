@@ -1,0 +1,105 @@
+/* Reset und Basis-Stile */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    /* diagonaler Farbverlauf */
+    background: linear-gradient(135deg, #2c3e50, #000000);
+    font-family: 'Roboto', sans-serif;
+    color: #e0e0e0;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+/* Header */
+.header {
+    background-color: rgba(20, 20, 20, 0.9);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+.header h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.header #username {
+    font-size: 1rem;
+    color: #66ff66;
+}
+
+/* Hauptbereich */
+.main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Dunkle Box */
+.button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+}
+
+.button-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Buttons */
+button {
+    background-color: #2979ff;
+    border: none;
+    color: #fff;
+    padding: 18px 28px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border-radius: 25px;
+    cursor: pointer;
+    min-width: 240px;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-family: 'Oswald', sans-serif;
+}
+
+button:hover {
+    background-color: #5393ff;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Footer */
+.footer {
+    background-color: rgba(20, 20, 20, 0.9);
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #333;
+    font-size: 0.9rem;
+    color: #888;
+}

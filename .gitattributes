@@ -1,0 +1,2 @@
+essential/Essential[[:space:]](forge_1.19.2).jar filter=lfs diff=lfs merge=lfs -text
+jcef-bundle/libcef.dll filter=lfs diff=lfs merge=lfs -text

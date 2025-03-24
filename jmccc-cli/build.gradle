@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+description = 'jmccc cli'
+
+// HIER Repositories
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':jmccc')
+    implementation project(':jmccc-mcdownloader')
+    implementation project(':jmccc-microsoft-authenticator')
+
+    implementation 'net.sf.jopt.simple:jopt-simple:5.0.3'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.slf4j:slf4j-nop:1.7.36'
+}
+
+// Konfiguration für Shadow-JAR
+shadowJar {
+    manifest {
+        attributes(
+                'Main-Class': 'jmccc.cli.Main',
+                'Specification-Title': 'JMCCC CLI',
+                'Specification-Version': '1',
+                'Specification-Vendor': 'xfl03',
+                'Implementation-Title': 'JMCCC CLI',
+                'Implementation-Version': project.version,
+                'Implementation-Vendor': 'xfl03'
+        )
+    }
+    minimize {
+        exclude(dependency('commons-logging:commons-logging:.*'))
+        exclude(dependency('org.ehcache.modules:ehcache-impl:.*'))
+        exclude(dependency('org.slf4j:.*:.*'))
+    }
+}

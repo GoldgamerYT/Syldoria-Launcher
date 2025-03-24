@@ -1,0 +1,14 @@
+plugins {
+    id 'java-library'
+}
+
+description = "jmccc yggdrasil authenticator"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api(project(":jmccc"))
+    // ... evtl. weitere Abhängigkeiten ...
+}

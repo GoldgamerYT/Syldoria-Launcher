@@ -1,0 +1,18 @@
+[00:29:50.292][INFO]: Successfully injected RecipeFS file system
+[00:29:50.464][INFO]: Successfully identified and loaded plugin crafttweaker:builtin
+[00:29:50.473][INFO]: Successfully identified and loaded plugin crafttweaker:builtin_forge
+[00:29:50.478][INFO]: Successfully identified and loaded plugin farmersdelight:crafttweaker_plugin
+[00:29:52.842][INFO]: The following mods have explicit CraftTweaker support through the default plugin:
+[00:29:52.845][INFO]: - 'angrymobs' at version '2.0.0'
+[00:29:52.846][INFO]: - 'crafttweaker' at version '10.1.55'
+[00:29:52.846][INFO]: - 'dimstages' at version '4.0.4'
+[00:29:52.846][INFO]: - 'exnihilosequentia' at version '4.2.0'
+[00:29:52.846][INFO]: - 'farmersdelight' at version '1.19.2-1.2.4'
+[00:29:52.846][INFO]: - 'gamestages' at version '11.1.4'
+[00:29:52.846][INFO]: - 'itemstages' at version '5.1.4'
+[00:29:52.846][INFO]: - 'recipestages' at version '4.0.0.7'
+[00:29:52.846][INFO]: - 'sdmorestages' at version '1.19.2-0.5.1'
+[00:30:03.706][INFO]: Started loading scripts for loader 'initialize'
+[00:30:04.389][INFO]: Compiling and executing scripts
+[00:30:04.482][INFO]: Successfully initialized modules [crafttweaker, expansions]
+[00:30:04.675][INFO]: Execution for loader 'initialize' completed successfully

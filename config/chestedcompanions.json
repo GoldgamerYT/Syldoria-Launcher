@@ -1,0 +1,14 @@
+{
+  "allowChestOnCats": true,
+  "allowChestOnWolves": true,
+  "invertShiftToOpen": false,
+  "publicChest": false,
+  "catInventoryCapacity": "one_row",
+  "wolfInventoryCapacity": "one_row",
+  "hideCatChest": false,
+  "hideWolfChest": false,
+  "allowChestOnBabyCat": false,
+  "allowChestOnBabyWolf": false,
+  "showChestIconOnCats": false,
+  "showChestIconOnWolves": false
+}

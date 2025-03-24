@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syldoria Launcher</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #00FF66;
+      --primary-dark: #00CF55;
+      --secondary-color: #121212;
+      --dark-bg: #070707;
+      --card-bg: #0F0F0F;
+      --text-color: #FFFFFF;
+      --text-secondary: #8A8A8A;
+      --error-color: #FF4747;
+      --heart-color: #FF3366;
+      --border-color: rgba(255, 255, 255, 0.08);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+    }
+    
+  body {
+      background-color: var(--dark-bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-color);
+      width: 900px;
+      height: 700px;
+      min-height: 700px;
+      overflow: hidden;
+    }
+    
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease;
+    /* Sicherstellen, dass Container die gesamte Höhe einnimmt */
+    min-height: 100%;
+  }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 25px 30px;
+      background-color: var(--dark-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 32px;
+      width: auto;
+    }
+    
+    .logo h1 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-left: 12px;
+      letter-spacing: -0.5px;
+    }
+    
+    #username {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      z-index: 10000; /* Höher als die Benachrichtigung */
+    }
+    
+    #username.logged-in {
+      color: var(--text-color);
+    }
+    
+    #username::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--error-color);
+      margin-right: 8px;
+    }
+    
+    #username.logged-in::before {
+      background-color: var(--primary-color);
+    }
+    
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 30px;
+      background-color: var(--dark-bg);
+      max-height: 540px; /* Sorgt dafür, dass alles im Fenster bleibt */
+    }
+    
+    .content-wrapper {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    
+    .welcome {
+      text-align: center;
+    }
+    
+    .welcome h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+      animation: slideUp 0.5s ease forwards;
+    }
+    
+    .welcome p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 25px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: slideUp 0.5s ease forwards;
+      animation-delay: 0.1s;
+      opacity: 0;
+    }
+    
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+    }
+    
+    .action-card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      animation: slideUp 0.4s ease forwards;
+      opacity: 0;
+    }
+    
+    .action-card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+    
+    .action-card:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+    
+    .action-card:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    .action-card:nth-child(4) {
+      animation-delay: 0.5s;
+    }
+    
+    .action-card:hover {
+      border-color: rgba(0, 255, 102, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    .action-card h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--text-color);
+    }
+    
+    .action-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      flex: 1;
+    }
+    
+    button {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    
+    button:hover {
+      background-color: rgba(0, 255, 102, 0.05);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    button:active {
+      transform: translateY(1px);
+    }
+    
+    #minecraftButton {
+      background-color: var(--primary-color);
+      color: #000000;
+      border: none;
+    }
+    
+    #minecraftButton:hover {
+      background-color: var(--primary-dark);
+      color: #000000;
+    }
+    
+    #minecraftButton.running {
+      background-color: var(--error-color);
+      color: var(--text-color);
+    }
+    
+    #minecraftButton.running:hover {
+      background-color: #E43E3E;
+    }
+    
+    .footer {
+      padding: 20px 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-color);
+      animation: fadeIn 0.8s forwards;
+    }
+    
+    .heart {
+      color: var(--heart-color);
+      display: inline-block;
+      margin: 0 4px;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Notifications */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 6px;
+      color: white;
+      font-weight: 500;
+      font-size: 0.9rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transform: translateX(120%);
+      transition: transform 0.3s ease-out;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      max-width: 300px;
+    }
+    
+    .notification.success {
+      background-color: rgba(0, 255, 102, 0.15);
+      color: var(--primary-color);
+      border-color: rgba(0, 255, 102, 0.2);
+    }
+    
+    .notification.error {
+      background-color: rgba(255, 71, 71, 0.15);
+      color: var(--error-color);
+      border-color: rgba(255, 71, 71, 0.2);
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+    }
+    
+    .notification::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--text-color);
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    
+    .notification.success::before {
+      background-color: var(--primary-color);
+    }
+    
+    .notification.error::before {
+      background-color: var(--error-color);
+    }
+    
+    /* Loading overlay */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(7, 7, 7, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+    }
+    
+    .loading-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      border-top-color: var(--primary-color);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px); 
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0); 
+      }
+    }
+  </style>
+
+  <script>
+    // Ensure smooth page load
+    document.body.style.opacity = "0";
+    window.addEventListener("DOMContentLoaded", function() {
+      setTimeout(() => {
+        document.body.style.opacity = "1";
+        document.body.style.transition = "opacity 0.1s ease-in-out";
+      }, 50);
+    });
+  </script>
+</head>
+<body oncontextmenu="return false;">
+  <!-- Notification container -->
+  <div id="notification" class="notification"></div>
+  
+  <!-- Loading overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <img src="https://cdn.discordapp.com/attachments/1168240906479091843/1333886174636413020/icon.png" alt="Syldoria Logo">
+        <h1>Syldoria</h1>
+      </div>
+      <div id="username">Nicht angemeldet</div>
+    </header>
+    
+    <main class="main">
+      <div class="content-wrapper">
+        <div class="welcome">
+          <h2>Willkommen, Abenteurer</h2>
+          <p>Dive into the magical world of Syldoria - A Roleplay Server with adventures, magic and mysteries.</p>
+        </div>
+        
+        <div class="actions">
+          <div class="action-card">
+            <h3>Spielen</h3>
+            <p>Betritt die magische Welt von Syldoria und erlebe ein einzigartiges RPG-Abenteuer.</p>
+            <button id="minecraftButton">Start Minecraft</button>
+          </div>
+          
+          <div class="action-card">
+            <h3>Account</h3>
+            <p>Greife auf deinen Charakter zu und nutze alle magischen Funktionen des Servers.</p>
+            <button id="loginButton">Login</button>
+          </div>
+          
+          <div class="action-card">
+            <h3>Einstellungen</h3>
+            <p>Konfiguriere deinen Zugang zur magischen Welt von Syldoria.</p>
+            <button id="settingsButton">Einstellungen</button>
+          </div>
+          
+          <div class="action-card">
+            <h3>Beenden</h3>
+            <p>Schließe den Launcher und beende die Anwendung.</p>
+            <button id="closeLauncherButton">Launcher schließen</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <footer class="footer">
+      <div>Syldoria Launcher • Made with <span class="heart">♥</span> • &copy; 2025</div>
+    </footer>
+  </div>
+
+  <script>
+    // Prevent right-click menu
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    
+    // Language data
+    const translations = {
+      de: {
+        welcome: "Willkommen, Abenteurer",
+        description: "Dive into the magical world of Syldoria - A Roleplay Server with adventures, magic and mysteries.",
+        play: "Spielen",
+        playDesc: "Betritt die magische Welt von Syldoria und erlebe ein einzigartiges RPG-Abenteuer.",
+        account: "Account",
+        accountDesc: "Greife auf deinen Charakter zu und nutze alle magischen Funktionen des Servers.",
+        settings: "Einstellungen",
+        settingsDesc: "Konfiguriere deinen Zugang zur magischen Welt von Syldoria.",
+        exit: "Beenden",
+        exitDesc: "Schließe den Launcher und beende die Anwendung.",
+        startMinecraft: "Start Minecraft",
+        stopMinecraft: "Stop Minecraft",
+        login: "Login",
+        logout: "Logout",
+        notLoggedIn: "Nicht angemeldet",
+        loggedInAs: "Angemeldet als:"
+      },
+      en: {
+        welcome: "Welcome, Adventurer",
+        description: "Dive into the magical world of Syldoria - A Roleplay Server with adventures, magic and mysteries.",
+        play: "Play",
+        playDesc: "Enter the magical world of Syldoria and experience a unique RPG adventure.",
+        account: "Account",
+        accountDesc: "Access your character and utilize all magical features of the server.",
+        settings: "Settings",
+        settingsDesc: "Configure your access to the magical world of Syldoria.",
+        exit: "Exit",
+        exitDesc: "Close the launcher and exit the application.",
+        startMinecraft: "Start Minecraft",
+        stopMinecraft: "Stop Minecraft",
+        login: "Login",
+        logout: "Logout",
+        notLoggedIn: "Not logged in",
+        loggedInAs: "Logged in as:"
+      }
+    };
+  
+    // Update UI language
+    function updateLanguage(lang) {
+      const t = translations[lang];
+      
+      // Update welcome section
+      document.querySelector('.welcome h2').textContent = t.welcome;
+      document.querySelector('.welcome p').textContent = t.description;
+      
+      // Update action cards
+      const cards = document.querySelectorAll('.action-card');
+      cards[0].querySelector('h3').textContent = t.play;
+      cards[0].querySelector('p').textContent = t.playDesc;
+      cards[1].querySelector('h3').textContent = t.account;
+      cards[1].querySelector('p').textContent = t.accountDesc;
+      cards[2].querySelector('h3').textContent = t.settings;
+      cards[2].querySelector('p').textContent = t.settingsDesc;
+      cards[3].querySelector('h3').textContent = t.exit;
+      cards[3].querySelector('p').textContent = t.exitDesc;
+      
+      // Update button texts
+      const mcButton = document.getElementById('minecraftButton');
+      mcButton.textContent = mcButton.classList.contains('running') ? t.stopMinecraft : t.startMinecraft;
+      
+      const loginButton = document.getElementById('loginButton');
+      loginButton.textContent = loginButton.textContent === 'Login' ? t.login : t.logout;
+      
+      document.getElementById('settingsButton').textContent = t.settings;
+      document.getElementById('closeLauncherButton').textContent = t.exit;
+      
+      // Update login status
+      const username = document.getElementById('username');
+      if (username.classList.contains('logged-in')) {
+        const name = username.textContent.split(': ')[1];
+        username.textContent = `${t.loggedInAs} ${name}`;
+      } else {
+        username.textContent = t.notLoggedIn;
+      }
+      
+      // Save language preference
+      localStorage.setItem('language', lang);
+    }
+  
+    // Show notification
+    function showNotification(message, type = 'success') {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.className = `notification ${type}`;
+      
+      // Add show class to trigger animation
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      // Hide after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Show/hide loading overlay
+    function toggleLoading(show) {
+      const overlay = document.getElementById('loadingOverlay');
+      if (show) {
+        overlay.classList.add('show');
+      } else {
+        overlay.classList.remove('show');
+      }
+    }
+    
+    // Auto login function
+    function autoLogin() {
+      toggleLoading(true);
+      
+      fetch("/autologin", { method: "GET" })
+        .then(response => response.json())
+        .then(data => {
+          const lang = localStorage.getItem('language') || 'de';
+          const t = translations[lang];
+          
+          if (data.status === "success") {
+            document.getElementById("username").textContent = `${t.loggedInAs} ${data.username}`;
+            document.getElementById("username").classList.add('logged-in');
+            document.getElementById("loginButton").textContent = t.logout;
+            showNotification(`${lang === 'de' ? 'Willkommen zurück' : 'Welcome back'}, ${data.username}!`);
+          } else {
+            document.getElementById("username").textContent = t.notLoggedIn;
+            document.getElementById("username").classList.remove('logged-in');
+            document.getElementById("loginButton").textContent = t.login;
+          }
+          toggleLoading(false);
+        })
+        .catch(error => {
+          console.error("Fehler beim Auto-Login:", error);
+          showNotification(
+            localStorage.getItem('language') === 'en' ? 
+              "Auto-login failed" : 
+              "Auto-Login fehlgeschlagen", 
+            "error"
+          );
+          toggleLoading(false);
+        });
+    }
+    
+    // Check Minecraft status
+    function checkMinecraftStatus() {
+      fetch("/minecraftStatus", { method: "GET" })
+        .then(response => response.json())
+        .then(data => {
+          const mcButton = document.getElementById("minecraftButton");
+          const lang = localStorage.getItem('language') || 'de';
+          const t = translations[lang];
+          
+          if (data.running) {
+            mcButton.disabled = false;
+            mcButton.classList.add('running');
+            mcButton.textContent = t.stopMinecraft;
+          } else {
+            mcButton.disabled = false;
+            mcButton.classList.remove('running');
+            mcButton.textContent = t.startMinecraft;
+          }
+        })
+        .catch(error => {
+          console.error("Fehler beim Abrufen des Minecraft-Status:", error);
+          showNotification(
+            localStorage.getItem('language') === 'en' ? 
+              "Status query failed" : 
+              "Statusabfrage fehlgeschlagen", 
+            "error"
+          );
+        });
+    }
+
+    // Initialize
+    window.addEventListener("load", function() {
+      // Load language preference
+      const savedLanguage = localStorage.getItem('language') || 'de';
+      updateLanguage(savedLanguage);
+      
+      autoLogin();
+      checkMinecraftStatus();
+      setInterval(checkMinecraftStatus, 2000);
+    });
+
+    // Login button
+    document.getElementById("loginButton").addEventListener("click", function() {
+      const lang = localStorage.getItem('language') || 'de';
+      const t = translations[lang];
+      
+      if (this.textContent === t.login) {
+        toggleLoading(true);
+        
+        fetch("/login", { method: "GET" })
+          .then(response => response.json())
+          .then(data => {
+            showNotification(data.message);
+            autoLogin();
+            toggleLoading(false);
+          })
+          .catch(error => {
+            console.error("Fehler beim Login:", error);
+            showNotification(
+              lang === 'en' ? "Login failed" : "Login fehlgeschlagen", 
+              "error"
+            );
+            toggleLoading(false);
+          });
+      } else {
+        toggleLoading(true);
+        
+        fetch("/logout", { method: "POST" })
+          .then(response => response.json())
+          .then(data => {
+            showNotification(data.message);
+            document.getElementById("username").textContent = t.notLoggedIn;
+            document.getElementById("username").classList.remove('logged-in');
+            this.textContent = t.login;
+            toggleLoading(false);
+          })
+          .catch(error => {
+            console.error("Fehler beim Logout:", error);
+            showNotification(
+              lang === 'en' ? "Logout failed" : "Logout fehlgeschlagen", 
+              "error"
+            );
+            toggleLoading(false);
+          });
+      }
+    });
+
+    // Minecraft button
+    document.getElementById("minecraftButton").addEventListener("click", function() {
+      const btn = this;
+      toggleLoading(true);
+      const lang = localStorage.getItem('language') || 'de';
+      const t = translations[lang];
+      
+      if (!btn.classList.contains('running')) {
+        // Start Minecraft
+        btn.disabled = true;
+        fetch("/start", { method: "POST" })
+          .then(response => response.json())
+          .then(data => {
+            showNotification(data.message);
+            toggleLoading(false);
+          })
+          .catch(error => {
+            console.error("Fehler beim Starten von Minecraft:", error);
+            showNotification(
+              lang === 'en' ? 
+                "Could not start Minecraft" : 
+                "Konnte Minecraft nicht starten", 
+              "error"
+            );
+            toggleLoading(false);
+            btn.disabled = false;
+          });
+      } else {
+        // Stop Minecraft
+        btn.disabled = true;
+        fetch("/stop", { method: "POST" })
+          .then(response => response.json())
+          .then(data => {
+            showNotification(data.message);
+            toggleLoading(false);
+          })
+          .catch(error => {
+            console.error("Fehler beim Stoppen von Minecraft:", error);
+            showNotification(
+              lang === 'en' ? 
+                "Could not stop Minecraft" : 
+                "Konnte Minecraft nicht stoppen", 
+              "error"
+            );
+            toggleLoading(false);
+            btn.disabled = false;
+          });
+      }
+    });
+
+    // Settings button
+    document.getElementById("settingsButton").addEventListener("click", function() {
+      document.body.style.transition = "opacity 0.1s ease-in-out";
+      document.body.style.opacity = "0";
+      
+      setTimeout(() => {
+        window.location.href = "/settings";
+      }, 100);
+    });
+
+    // Close launcher button
+    document.getElementById("closeLauncherButton").addEventListener("click", function() {
+      toggleLoading(true);
+      
+      fetch("/closeLauncher", { method: "POST" })
+        .then(response => response.json())
+        .then(data => {
+          showNotification(data.message);
+          setTimeout(() => {
+            window.close();
+          }, 1000);
+        })
+        .catch(error => {
+          console.error("Fehler beim Schließen des Launchers:", error);
+          showNotification(
+            localStorage.getItem('language') === 'en' ? 
+              "Could not close launcher" : 
+              "Konnte den Launcher nicht schließen", 
+            "error"
+          );
+          toggleLoading(false);
+        });
+    });
+  </script>
+</body>
+</html>

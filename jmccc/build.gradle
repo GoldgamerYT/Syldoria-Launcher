@@ -1,0 +1,15 @@
+plugins {
+    id 'java-library'
+}
+
+description = "jmccc core"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Hier kannst du externe Abhängigkeiten angeben, falls Core welche braucht
+    // z.B. implementation 'org.apache.commons:commons-compress:1.22'
+    // Wenn dein lokales jmccc-Quellcode references libraries
+}
