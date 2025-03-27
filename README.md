@@ -8,6 +8,13 @@ A custom Minecraft launcher with enhanced features for an optimal gaming experie
 
 The Syldoria Launcher is a specially developed Minecraft launcher that offers an improved user interface and additional features. It enables easy installation and management of Minecraft versions, mods, and resource packs required for the Syldoria roleplay server.
 
+### Automatic Mod Download
+
+**Main Features:**
+- **Automatic Mod Download:** The launcher automatically downloads all required mods from the Syldoria server and installs them
+- **CurseForge API Integration:** Uses the CurseForge API to obtain mods directly from their repository
+- **Custom Mod Downloader:** Contains a specially developed mod downloader for optimal compatibility and performance
+
 **IMPORTANT:** 
 - This launcher may only be used for open-source projects. Commercial use is not permitted.
 - The launcher is **Windows-only** and does not support Linux or macOS.
@@ -19,10 +26,11 @@ The Syldoria Launcher is a specially developed Minecraft launcher that offers an
 - Support for Microsoft and Mojang accounts
 - Easy installation and management of Minecraft versions
 - Automatic updates
-- Mod integration and management
+- Mod integration and management with automatic download from the server
 - Resource pack management
 - Discord integration
 - Special features for the Syldoria RP server
+- Custom mod downloader with direct CurseForge API connection
 
 ## Requirements
 
@@ -112,4 +120,4 @@ For questions or suggestions, you can contact the development team:
 
 ---
 
-2025 Syldoria Launcher - Developed with ❤️ for the Syldoria RP server community 
+2025 Syldoria Launcher - Developed with ❤️ for the Syldoria RP server community
